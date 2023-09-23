@@ -17,12 +17,14 @@ repositories {
 
 ext {
     set('springCloudVersion', "2021.0.8")
+    set('otelVersion', "1.17.0")
 }
 
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
     implementation 'org.springframework.retry:spring-retry'
+    runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
@@ -56,4 +58,7 @@ bootBuildImage {
             url = project.findProperty("registryUrl")
         }
     }
+}
+springBoot {
+    buildInfo()
 }
